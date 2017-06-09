@@ -61,67 +61,103 @@ You are all set now and can launch the VM.
 
 To make full use of the GPU capabilities please install the corresponding drivers and toolkit for you distro from the official Nvidia repositories which can be found [here](https://developer.nvidia.com/cuda-downloads). From there please follow the post installation [instructions](http://docs.nvidia.com/cuda/cuda-installation-guide-linux/#package-manager-installation) 
 
-## Example for installing CUDA 7.5 on Ubuntu 14.04
+## Example for installing CUDA 8.0 on Ubuntu 16.04
 
-* Download CUDA installer: 
-
-```wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run```
-
-* Prepare the environment and run:
+* Prepare the drivers:
 
 ```bash
-sudo apt-get install gcc make g++
-sudo service lightdm stop
-sudo sh cuda_7.5.18_linux.run
+sudo apt purge nvidia-* libcuda1-*
+sudo apt install build-essential libglu1-mesa libxi-dev libxmu-dev libglu1-mesa-dev
+wget http://us.download.nvidia.com/XFree86/Linux-x86_64/367.35/NVIDIA-Linux-x86_64-367.35.run
+sudo sh NVIDIA-Linux-x86_64-367.35.run
 ```
 
-* Space to scroll to the end and type `accept`
-<pre>
-Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 352.39? ((y)es/(n)o/(q)uit): yes
-Do you want to install the OpenGL libraries? ((y)es/(n)o/(q)uit) [ default is yes ]: yes
-Install the CUDA 7.5 Toolkit? ((y)es/(n)o/(q)uit): yes
-Enter Toolkit Location [ default is /usr/local/cuda-7.5 ]: Enter
-Do you want to install a symbolic link at /usr/local/cuda? ((y)es/(n)o/(q)uit): yes
-Install the CUDA 7.5 Samples? ((y)es/(n)o/(q)uit): yes
-Enter CUDA Samples Location [ default is /home/ubuntu ]: Enter
-Installing the NVIDIA display driver...Driver:   Reboot required to continue Toolkit:  Installation skipped Samples: Installation skipped
-</pre>
+* Check witn `nvidia-smi` that the card is detected. Should show something like this:
 
-* Reboot: ```sudo reboot```
-* ssh to VM
-* Resume the installation: `sudo service lightdm stop && sudo sh cuda_7.5.18_linux.run`
-* Launch: `nvidia-smi`
 
-<pre>
-Mon May  2 09:29:08 2016    
-
-+------------------------------------------------------+                       
-| NVIDIA-SMI 352.39     Driver Version: 352.39         |                       
+```
+Thu Jun  1 10:33:21 2017
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 367.35                 Driver Version: 367.35                    |
 |-------------------------------+----------------------+----------------------+
 | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
 | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
 |===============================+======================+======================|
-|   0  GRID K2             Off  | 0000:00:05.0     Off |                  Off |
-| N/A   24C    P0    43W / 117W |     11MiB /  4095MiB |      0%      Default |
+|   0  GRID K2             Off  | 0000:01:01.0     Off |                  Off |
+| N/A   37C    P0     1W / 117W |      0MiB /  4036MiB |      0%      Default |
 +-------------------------------+----------------------+----------------------+
-|   1  GRID K2             Off  | 0000:00:06.0     Off |                  Off |
-| N/A   27C    P0    37W / 117W |     11MiB /  4095MiB |      0%      Default |
-+-------------------------------+----------------------+----------------------+
-                                                                               
+
 +-----------------------------------------------------------------------------+
 | Processes:                                                       GPU Memory |
 |  GPU       PID  Type  Process name                               Usage      |
 |=============================================================================|
 |  No running processes found                                                 |
 +-----------------------------------------------------------------------------+
+```
 
+* Now, reboot the OS and try `nvidia-smi` again:
+
+```
+reboot
+nvidia-smi
+```
+
+> You should get the same 
+
+* Download CUDA installer: 
+
+```bash
+wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda_8.0.61_375.26_linux-run
+```
+
+* Prepare the environment and run:
+
+```bash
+sudo apt-get install gcc make g++
+sudo apt-get install build-essential linux-headers-`uname -r` dkms
+sudo service lightdm stop
+sudo sh cuda_8.0.61_375.26_linux-run
+```
+
+* Space to scroll to the end and type `accept`
+
+* Give the **right** answers (notably, **NO** to the driver)
+
+<pre>
+Install NVIDIA Accelerated Graphics Driver for Linux-x86_64 375.26?
+(y)es/(n)o/(q)uit: n
+Install the CUDA 8.0 Toolkit?
+(y)es/(n)o/(q)uit: y
+Enter Toolkit Location
+ [ default is /usr/local/cuda-8.0 ]: press enter
+Do you want to install a symbolic link at /usr/local/cuda?
+(y)es/(n)o/(q)uit: y
+(Optional)
+Install the CUDA 8.0 Samples?
+(y)es/(n)o/(q)uit: y
+(Optional)
+Enter CUDA Samples Location
+ [ default is /root ]: /usr/local/cuda-samples
 </pre>
+
+* Reorganise the execution environment
+
+```bash
+sudo su -
+echo "export PATH=/usr/local/cuda-8.0/bin:$PATH" >> /etc/profile.d/nvidia.sh
+echo "export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH" >> /etc/profile.d/nvidia.sh
+chmod 755 /etc/profile.d/nvidia.sh
+```
+
+* Reboot: ```sudo reboot```
+* ssh to VM
+* Launch again `nvidia-smi`
 
 >**NOTE:**
 >
 >Don't forget to add the libaries and binaries paths to your environment, like:
-> - `export PATH=$PATH:/usr/local/cuda-7.5/bin`
-> - `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-7.5/lib64`
+> - `export PATH=$PATH:/usr/local/cuda-8.0/bin`
+> - `export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda-8.0/lib64`
 
 
 ### Running a Hello World

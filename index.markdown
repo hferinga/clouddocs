@@ -3,9 +3,21 @@ layout: default
 ---
 # SURFsara HPC Cloud documentation
 
-<div class="alert alert-info" style="float:right;max-width:50%;" markdown="1">
+<div style="float:right;max-width:50%;" markdown="1">
+<div class="alert alert-info" markdown="1">
 <i class="fa fa-info-circle fa-2x" aria-hidden="true"></i> 
 This _wiki_ collects the documentation for the **HPC Cloud** at SURFsara. The documentation pages are in constant review and you can expect **frequent changes**. You are welcome to contribute to **help us improve** the documentation (see bottom of this page).
+</div>
+
+<div style="display:none;" class="alert alert-success" markdown="1">
+<i class="fa fa-bookmark-o fa-2x" aria-hidden="true"></i> 
+<span style="color:red;">TODAY!</span> [2017-03-30 & 31 UNESCO-IHE symposium](uihe-20170330/index)
+</div>
+
+<div style="display:none;" class="alert alert-success" markdown="1">
+<i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
+The HPC Cloud documentation **images are not being rendered correctly**. The service team is fixing the issue.
+</div>
 </div>
 
 ## Operational
@@ -44,7 +56,6 @@ This _wiki_ collects the documentation for the **HPC Cloud** at SURFsara. The do
 ### GPU
 
 * [Attaching a GPU to a VM](gpu-attach)
-* [Deep learning use case](gpu-deep-learn)
 * [Remote GPU visualization](gpu-visualization)
 
 ### Disk Images
@@ -84,6 +95,7 @@ This _wiki_ collects the documentation for the **HPC Cloud** at SURFsara. The do
 
 
 ## Tutorials
+* [UNESCO-IHE symposium 2017-03-30 & 31](uihe-20170330/index)
 * [UvA HPC Cloud workshop 2017-02-01](UvA-20170201/index) (part of the [UvA HPC and Big Data course](http://hpc.uva.nl))
 
 <!---

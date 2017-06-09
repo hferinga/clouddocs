@@ -18,7 +18,7 @@ The following instructions explain how to use one of their prepared images to (a
  * choose _Type_:Operating System image
  * make sure that, for field _Datastore_, you chose _101: local-images-ssd_
  * choose whether you want the `image` to be _Persistent_
- * in the _Image location:_ area, mark the _Provide a path_ radio button
+ * in the _Image location:_ area, mark the _Path in OpenNebula server_ radio button
  * fill in the _Path_ to the `image` file, by pasting the URL you copied in the first step of this recipe
  * Click on the _Advanced options_ dropdown area. There, you must fill in:
   * In _Target device_, type `vd`
@@ -34,7 +34,7 @@ You need to put that `image` that you imported into a `template`. We will do tha
 1. **On the HPC Cloud UI:** In the _Storage_ tab, choose the `image` you created in the previous step for the _Disk 0_ disk.
 1. **On the HPC Cloud UI:** In the _Network_ tab, choose network _internet_ for `nic` _Interface 0_, and add a new `nic`, which will get name _Interface 1_ to assign it to your internal network.
 1. **On the HPC Cloud UI:** In the _Input/Output_ tab, make sure the _VNC_ radio button is checked.
-1. **On the HPC Cloud UI:** In the _Features_ tab, choose:
+1. **On the HPC Cloud UI:** In the _OS Booting_ tab, choose _Features_ on the left side and set:
   * _ACPI_ as _Yes_
   * _Localtime_ as _No_
 1. **On the HPC Cloud UI:** We are done preparing the `template`. Click on the green _Create_ button on the top-left of the screen.

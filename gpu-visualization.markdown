@@ -53,5 +53,5 @@ You only need to do the previous steps once. For every subsequent work session, 
 3. Start the VNC client on your local machine, and login to your VNCserver: `vncviewer <your VM's ip address>:1`
 4. You should now have access with your VNC viewer to the remote desktop on the cloud node 
 5. (Optional) To test if everything works correctly, you can use the application glxgears located in the `mesa-utils` package (on Ubuntu).  You run the command `vglrun glxgears`, and if you see three red, green a blue cogs, everything works correctly.
-![Test with GLXgears](images/gpu/rvs_glxgears.png)
+![Test with GLXgears](../images/gpu/rvs_glxgears.png)
 
